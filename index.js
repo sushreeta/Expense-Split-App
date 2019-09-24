@@ -9,7 +9,7 @@ app.get('/', (res,req)=>{
      res.send('Welcome to Expense Split app built by Sushreeta Sahoo')
 })
 
-app.use('/',routes)
+app.use('/user',routes)
 
 app.listen(port, ()=>{
      console.log('Listening to port', port)
