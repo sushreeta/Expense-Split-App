@@ -10,7 +10,7 @@ const groupSchema = new schema({
           maxlength:20,
           validate:{
                validator: (groupName)=>{
-                    return name.length >= 3 && name.length <= 20
+                    return groupName.length >= 3 && groupName.length <= 20
                },
                msg: ()=>{
                     return 'Group name should be between 3-20 characters'
@@ -25,11 +25,10 @@ const groupSchema = new schema({
           user:{
                type:schema.Types.ObjectId,
                ref:'User',
-               require:true
+               //require:true
           }
      }]
 })
 
 const Group = mongoose.model('Group', groupSchema)
-
-module.exports = { Group }
+module.exports = Group

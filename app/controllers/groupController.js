@@ -1,21 +1,58 @@
-const express = require('express')
-const router = express.Router()
 const Group = require('../models/group')
 
-const createGroup = function(req,res){
-
+module.exports.create = (req,res)=>{
+     const body = req.body
+     const group = new Group(body)
+     group.save()
+          .then((group)=>{
+               console.log('saved')
+               res.send(group)
+          })
+          .catch((err)=>{
+               console.log('error')
+               res.send(err)
+          })
 }
 
-const updateGroup = function(req,res){
-
+module.exports.view = (req,res)=>{
+     const {id} = req.params
+     Group.findById(id)
+          .then((group)=>{
+               res.json(group)
+          })
+          .catch((err)=>{
+               res.json(err)
+          })
+     
 }
 
-const deleteGroup = function(req,res){
-
+module.exports.update = (req,res)=>{
+     const body = req.body
+     const {id} = req.params
+     Group.findByIdAndUpdate(id, body, {new:true, runValidators:true})
+          .then((group)=>{
+               if(group){
+                    res.json(group)
+               } else {
+                    res.json({})
+               }
+          })
+          .catch((err)=>{
+               res.json(err)
+          })
 }
 
-module.exports ={
-     createGroup,
-     updateGroup,
-     deleteGroup
+module.exports.delete = (req,res)=>{
+     const {id} = req.params
+     Group.findByIdAndDelete(id)
+          .then((group)=>{
+               if(group){
+                    res.json(group)
+               } else {
+                    res.json({})
+               }
+          })
+          .then((err)=>{
+               res.json(err)
+          })
 }

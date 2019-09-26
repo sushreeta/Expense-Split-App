@@ -1,25 +1,26 @@
 const express = require('express')
 const router = express.Router()
-const authenticate = require('../app/middleware/authentication')
+const authenticate = require('../app/middlewares/authentication')
 
 const expense = require('../app/controllers/expenseController')
-const user = require('../app/controllers/userController')
+const user = require('../app/controllers/usersController')
 const group = require('../app/controllers/groupController')
 
-router.post('/register', user.register)
-router.post('/login', user.login)
-router.get('/profile', authenticate, user.profile)
-//router.put('/updateProfile', authenticate, user.updateProfile)
-router.delete('/deleteProfile', authenticate, user.deleteProfile)
+// router.post('/register', user.register)
+// router.post('/login', user.login)
+// router.get('/profile', user.profile)
+// //router.put('/updateProfile', authenticate, user.updateProfile)
+// router.delete('/deleteProfile', user.deleteProfile)
 
-router.post('/createGroup', authenticate, group.create)
-router.put('/updateGroup', authenticate, group.update)
-router.delete('/deleteGroup', authenticate, group.delete)
+router.post('/groupCreate', group.create)
+router.get('/groupView', group.view)
+router.put('/groupUpdate/:id', group.update)
+router.delete('/groupDelete/:id', group.delete)
 
-router.post('/createExpense', authenticate, expense.create)
-//router.post('/uploadExpenses', authenticate, expense.upload)
-router.put('/editExpense', authenticate, expense.edit)
-router.delete('/removeExpense', authenticate, expense.remove)
-router.put('/settleExpense', authenticate, expense.settle)
+// router.post('/createExpense',expense.create)
+// //router.post('/uploadExpenses', authenticate, expense.upload)
+// router.put('/editExpense',expense.edit)
+// router.delete('/removeExpense',expense.remove)
+// router.put('/settleExpense',expense.settle)
 
-module.exports = { router }
+module.exports = router
