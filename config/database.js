@@ -2,13 +2,13 @@ const mongoose = require('mongoose')
 
 mongoose.Promise = global.Promise
 
-mongoose.connect('mongodb://localhost:27017/Expense-split', {
-     useNewUrlParser:true })
+mongoose.connect('mongodb://localhost:27017/expense_split', {
+     useNewUrlParser: true
+})
      .then(()=>{
-          console.log('Successfully connected to mongoDB')
+          console.log('connected to DB')
      })
      .catch((err)=>{
-          console.log('Error connecting to mongoDB', err)
+          console.log('cannot connectto DB',err)
      })
-
-     module.exports = mongoose
+module.exports = mongoose

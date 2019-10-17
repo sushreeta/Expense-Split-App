@@ -3,14 +3,15 @@ const Group = require('../models/group')
 module.exports.create = (req,res)=>{
      const body = req.body
      const group = new Group(body)
+     //group.markModified('groupName')
      group.save()
           .then((group)=>{
                console.log('saved')
-               res.send(group)
+               res.json(group)
           })
           .catch((err)=>{
                console.log('error')
-               res.send(err)
+               res.json(err)
           })
 }
 
@@ -23,12 +24,12 @@ module.exports.view = (req,res)=>{
           .catch((err)=>{
                res.json(err)
           })
-     
 }
 
 module.exports.update = (req,res)=>{
+     const id = req.params.id
      const body = req.body
-     const {id} = req.params
+     console.log(req.params)
      Group.findByIdAndUpdate(id, body, {new:true, runValidators:true})
           .then((group)=>{
                if(group){

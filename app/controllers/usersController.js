@@ -4,8 +4,8 @@ const {User} = require('../models/user')
 const {authenticateUser} = require('../middlewares/authentication')
 
 
-//localhost:3000/users/register
-const register = (req,res)=>{
+//localhost:3010/users/register
+module.exports.register = (req,res)=>{
      const body = req.body
      const user = new User(body)
      user.save()
@@ -18,8 +18,8 @@ const register = (req,res)=>{
 }
 
 
-//localhost:3000/users/login
-const login = (req,res)=>{
+//localhost:3010/users/login
+module.exports.login = (req,res)=>{
      const body = req.body
      User.findByCredentials(body.email, body.password)
           .then(function(user){
@@ -33,15 +33,20 @@ const login = (req,res)=>{
           })
 }
 
-//localhost:3000/users/account
-const profile = (req,res)=>{
-     const { user } = req
-     res.send(user)
+//localhost:3010/users/profile
+//need to work on it
+module.exports.profile = (req,res)=>{
+     const username = req.user.username
+     User.find({username})
+		.then((user) => {
+			res.send(user)
+		})
+		.catch(err => res.send({ err }))
 }
 
 
-//localhost:3000/users/logout
-const logout = (req,res)=>{
+//localhost:3010/users/logout
+module.exports.logout = (req,res)=>{
      const { user, token } = req
      User.findByIdAndUpdate(user._id, { $pull: { tokens: { token: token }}})
           .then(()=>{
@@ -52,9 +57,14 @@ const logout = (req,res)=>{
           })
 }
 
-module.exports = {
-     register: register,
-     login: login,
-     profile: profile,
-     logout: logout
+//localhost:3010/users/deleteProfile
+module.exports.deleteProfile = (req,res)=>{
+     const { user, token } = req
+     User.findByIdAndDelete(user._id)
+          .then(()=>{
+               res.send('Successfully Deleted Account')
+          })
+          .catch((err)=>{
+               res.send(err)
+          })
 }

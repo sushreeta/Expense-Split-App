@@ -1,6 +1,6 @@
 const {User} = require('../models/user')
 
-const authenticateUser = function(req,res,next) {
+module.exports.authenticateUser = (req,res,next)=>{
      const token = req.header('x-auth')
      User.findByToken(token)
           .then((user)=>{
@@ -16,5 +16,3 @@ const authenticateUser = function(req,res,next) {
                res.status('401').send(err)
           })
 }
-
-module.exports = {authenticateUser}
