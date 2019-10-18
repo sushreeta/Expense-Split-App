@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const schema = mongoose.Schema
+const Group = require('./group')
 
 const expenseSchema = new schema({
      description:{
@@ -43,8 +44,45 @@ const expenseSchema = new schema({
      createdAt:{
           type:Date,
           default:Date.now()
-     }
+     },
+     // userExpense:[
+     //           {    
+     //                userId:{
+     //                     type:schema.Types.ObjectId,
+     //                     ref:'User'
+     //                },
+     //                lend:{
+     //                     type:Boolean
+     //                },    
+     //                lendAmount:{
+     //                     type:Number
+     //                }
+     //           }
+     // ]
 })
+
+// expenseSchema.pre('save', function(next){
+//      const expense = this
+//      Group.find({_id:expenseGroup})
+//           .then((group)=>{
+//                expense.userExpense = group.members
+//                for(member in expense.userExpense){
+//                     if(member.userId == paidBy){
+//                          member.lend = true
+//                     } else {
+//                          member.lend = false 
+//                     }
+//                     member.lendAmount = (amount/Group.members.length)
+//                }
+//                next()
+//           }
+//                )
+//           .catch((err)=>{
+//                return err
+//           })
+
+     
+// })
 
 const Expense = mongoose.model('Expense', expenseSchema)
 

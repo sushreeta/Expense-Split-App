@@ -7,6 +7,7 @@ module.exports.authenticateUser = (req,res,next)=>{
                if(user){
                     req.user = user
                     req.token = token
+                    //req.params = req.params
                     next()
                } else {
                     res.status('404').send({notice:'token not available'})

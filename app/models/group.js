@@ -27,8 +27,31 @@ const groupSchema = new Schema({
                     ref:'User'
                }
           }]
-     }
+     },
+     createdBy:{
+          type:Schema.Types.ObjectId,
+          ref:'User'
+     },
+     // members:[
+     //      {
+     //           userId:{
+     //                type:Schema.Types.ObjectId,
+     //                ref:'User'
+     //           },
+     //           lend:{
+     //                type:Boolean
+     //           },
+     //           lendAmount:{
+     //                type:Number
+     //           }
+     //      }
+     // ]
 })
+
+groupSchema.statics.updateExpense = function(amount, paidBy){
+     const group = this
+     group.find() 
+}
 
 const Group = mongoose.model('Group', groupSchema)
 
